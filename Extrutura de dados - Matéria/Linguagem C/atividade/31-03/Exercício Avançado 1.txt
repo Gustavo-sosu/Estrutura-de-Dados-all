@@ -1,0 +1,49 @@
+/*
+3. Crie uma matriz onde o usuário irá digitar a presença (P) ou falta (F) de 4 alunos durante 
+5 dias da semana. Ao final, exiba uma tabela formatada com os dados digitados. 
+*/
+#include <stdio.h>
+#include <ctype.h>
+
+int main() {
+    char alunos[4][20] = {"Gustavo", "Carlos", "João", "CR7"};
+    char dias[5][10] = {"Seg", "Ter", "Qua", "Qui", "Sex"};
+    char presenca[4][5];
+
+    for (int i = 0; i < 4; i++) {
+        printf("\nPresenças para %s:\n", alunos[i]);
+
+        for (int j = 0; j < 5; j++) {
+            char valor;
+            do {
+                printf("%s - Digite 'P' para Presente ou 'F' para Falta: ", dias[j]);
+                scanf(" %c", &valor);
+                valor = toupper(valor);
+
+                if (valor == 'P' || valor == 'F') {
+                    presenca[i][j] = valor;
+                } else {
+                    printf("Entrada inválida! Use apenas P ou F.\n");
+                }
+            } while (valor != 'P' && valor != 'F');
+        }
+    }
+
+    printf("\nTabela de Presenças:\n");
+    printf("Aluno    | ");
+
+    for (int j = 0; j < 5; j++) {
+        printf("%s ", dias[j]);
+    }
+    printf("\n");
+
+    for (int i = 0; i < 4; i++) {
+        printf("%-10s| ", alunos[i]);
+        for (int j = 0; j < 5; j++) {
+            printf(" %c ", presenca[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
