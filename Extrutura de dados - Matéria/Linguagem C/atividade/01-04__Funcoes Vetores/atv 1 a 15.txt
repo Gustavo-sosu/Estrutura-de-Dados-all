@@ -1,0 +1,166 @@
+#include <stdio.h>
+
+// Questão 1: Função que imprime uma mensagem
+void mensagem() {
+    printf("Olá, mundo das funções!\n");
+}
+
+// Questão 2: Função que retorna o dobro de um número inteiro
+int dobro(int x) {
+    return x * 2;
+}
+
+// Questão 3: Função que retorna a soma de dois números inteiros
+int soma(int a, int b) {
+    return a + b;
+}
+
+// Questão 6: Função que imprime os elementos de um vetor
+void mostrarVetor(int v[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        printf("%d ", v[i]);
+    }
+    printf("\n");
+}
+
+// Questão 7: Função que retorna a soma dos elementos do vetor
+int somaVetor(int v[], int tamanho) {
+    int soma = 0;
+    for (int i = 0; i < tamanho; i++) {
+        soma += v[i];
+    }
+    return soma;
+}
+
+// Questão 8: Função que calcula a média de notas
+float mediaNotas(float notas[], int qtd) {
+    float soma = 0;
+    for (int i = 0; i < qtd; i++) {
+        soma += notas[i];
+    }
+    return soma / qtd;
+}
+
+// Questão 9: Função que imprime o maior e o menor valor do vetor
+void maiorMenor(int v[], int tamanho) {
+    int maior = v[0], menor = v[0];
+    for (int i = 1; i < tamanho; i++) {
+        if (v[i] > maior) maior = v[i];
+        if (v[i] < menor) menor = v[i];
+    }
+    printf("Maior: %d, Menor: %d\n", maior, menor);
+}
+
+// Questão 10: Função que verifica se um número é par ou ímpar
+int parOuImpar(int numero) {
+    return numero % 2 == 0 ? 1 : 0;
+}
+
+// Questão 11: Função que busca um elemento no vetor
+int buscaElemento(int v[], int tamanho, int valor) {
+    for (int i = 0; i < tamanho; i++) {
+        if (v[i] == valor) return i;
+    }
+    return -1;
+}
+
+// Questão 12: Função que conta ocorrências de um valor no vetor
+int contarOcorrencias(int v[], int tamanho, int valor) {
+    int count = 0;
+    for (int i = 0; i < tamanho; i++) {
+        if (v[i] == valor) count++;
+    }
+    return count;
+}
+
+// Questão 13: Função que ordena o vetor usando Bubble Sort
+void ordenar(int v[], int tamanho) {
+    for (int i = 0; i < tamanho - 1; i++) {
+        for (int j = 0; j < tamanho - i - 1; j++) {
+            if (v[j] > v[j + 1]) {
+                int temp = v[j];
+                v[j] = v[j + 1];
+                v[j + 1] = temp;
+            }
+        }
+    }
+}
+
+// Questão 14: Função que imprime elementos maiores que a média
+void mediaMaiorQue(float v[], int tamanho, float media) {
+    for (int i = 0; i < tamanho; i++) {
+        if (v[i] > media) {
+            printf("%.2f ", v[i]);
+        }
+    }
+    printf("\n");
+}
+
+// Questão 15: Função para exibir menu de opções
+void menu() {
+    int v[5], opcao;
+    do {
+        printf("\nMenu:\n");
+        printf("1 - Inserir valores\n");
+        printf("2 - Mostrar vetor\n");
+        printf("3 - Somar elementos\n");
+        printf("4 - Calcular média\n");
+        printf("5 - Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+        
+        if (opcao == 1) {
+            printf("Digite 5 valores:\n");
+            for (int i = 0; i < 5; i++) {
+                scanf("%d", &v[i]);
+            }
+        } else if (opcao == 2) {
+            mostrarVetor(v, 5);
+        } else if (opcao == 3) {
+            printf("Soma: %d\n", somaVetor(v, 5));
+        } else if (opcao == 4) {
+            printf("Média: %.2f\n", somaVetor(v, 5) / 5.0);
+        }
+    } while (opcao != 5);
+}
+
+// Função principal
+int main() {
+    mensagem();
+    int num;
+    printf("Digite um número para calcular o dobro: ");
+    scanf("%d", &num);
+    printf("Dobro: %d\n", dobro(num));
+    
+    int a, b;
+    printf("Digite dois números para somar: ");
+    scanf("%d %d", &a, &b);
+    printf("Soma: %d\n", soma(a, b));
+    
+    int vetor[5] = {1, 2, 3, 4, 5};
+    mostrarVetor(vetor, 5);
+    
+    int vetor2[5];
+    printf("Digite 5 números: ");
+    for (int i = 0; i < 5; i++) {
+        scanf("%d", &vetor2[i]);
+    }
+    mostrarVetor(vetor2, 5);
+    
+    int vetor3[6] = {10, 20, 30, 40, 50, 60};
+    mostrarVetor(vetor3, 6);
+    printf("Soma do vetor: %d\n", somaVetor(vetor3, 6));
+    
+    float notas[4];
+    printf("Digite 4 notas: ");
+    for (int i = 0; i < 4; i++) {
+        scanf("%f", &notas[i]);
+    }
+    printf("Média das notas: %.2f\n", mediaNotas(notas, 4));
+    
+    maiorMenor(vetor3, 6);
+    
+    menu();
+    
+    return 0;
+}
