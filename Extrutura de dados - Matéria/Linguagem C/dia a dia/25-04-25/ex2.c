@@ -3,7 +3,7 @@
 
 int main()
 {
-    int vetor[TAMANHO] = {10, 20, 30};
+    int vetor[TAMANHO] = {10, 30, 20};
     int n = 3;
     int valor = 30;
     
