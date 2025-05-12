@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Estrutura do nó
+struct No {
+    int valor;
+    struct No *prox;
+};
+
+// Função para buscar um valor na lista
+struct No* buscarElemento(struct No *head, int valorBusca) {
+    struct No *atual = head; // Ponteiro auxiliar para percorrer
+
+    while (atual != NULL) { // Percorre até o fim da lista
+        if (atual->valor == valorBusca) // Se encontrou o valor
+            return atual; // Retorna o endereço do nó encontrado
+        atual = atual->prox; // Avança para o próximo nó
+    }
+
+    return NULL; // Se não encontrou, retorna NULL
+}
+
+// Função para imprimir a lista
+void imprimirLista(struct No *head) {
+    struct No *atual = head;
+    printf("Lista: ");
+    while (atual != NULL) {
+        printf("%d -> ", atual->valor);
+        atual = atual->prox;
+    }
+    printf("NULL\n");
+}
+
+// Função auxiliar para inserir no fim (reaproveitando)
+struct No* inserirNoFim(struct No *head, int valor) {
+    struct No *novo = (struct No*)malloc(sizeof(struct No));
+    novo->valor = valor;
+    novo->prox = NULL;
+    if (head == NULL) return novo;
+    struct No *atual = head;
+    while (atual->prox != NULL) {
+        atual = atual->prox;
+    }
+    atual->prox = novo;
+    return head;
+}
+
+int main() {
+    struct No *lista = NULL;
+
+    // Criando a Lista: 10 -> 20 -> 30 -> NULL
+    lista = inserirNoFim(lista, 10);
+    lista = inserirNoFim(lista, 20);
+    lista = inserirNoFim(lista, 30);
+
+    imprimirLista(lista);
+
+    // Buscar valor 20
+    struct No *resultado = buscarElemento(lista, 20);
+    if (resultado != NULL) {
+        printf("Valor %d encontrado no endereço %p.\n", resultado->valor, (void*)resultado);
+    } else {
+        printf("Valor 20 não encontrado.\n");
+    }
+
+    // Buscar valor inexistente
+    resultado = buscarElemento(lista, 99);
+    if (resultado != NULL) {
+        printf("Valor %d encontrado no endereço %p.\n", resultado->valor, (void*)resultado);
+    } else {
+        printf("Valor 99 não encontrado.\n");
+    }
+
+    return 0;
+}

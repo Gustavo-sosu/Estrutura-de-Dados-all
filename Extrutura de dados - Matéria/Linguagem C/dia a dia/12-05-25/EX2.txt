@@ -1,0 +1,21 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
+  Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+
+struct Pessoa {
+    int idade;
+    float altura;
+};
+
+int main()
+{
+    struct Pessoa *p = (struct Pessoa*) malloc(sizeof(struct Pessoa));
+    p->Idade = 20;
+    p->altura = 1.75;
+}
