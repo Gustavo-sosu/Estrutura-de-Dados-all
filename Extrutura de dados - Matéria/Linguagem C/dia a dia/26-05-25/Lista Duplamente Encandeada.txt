@@ -1,0 +1,199 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct No {
+int valor;
+struct No *anterior;
+struct No *proximo;
+};
+
+void inserirInicio(struct No **inicio, struct No **fin, int valor) {
+struct No *novo = (struct No *)malloc(sizeof(struct No));
+novo->valor = valor;
+novo->anterior = NULL;
+novo->proximo = *inicio;
+
+if (*inicio != NULL) {
+(*inicio)->anterior = novo;
+} else {
+*fin = novo;
+}
+
+*inicio = novo;
+printf("Inserido %d no início.\n", valor);
+}
+
+void inserirFim(struct No **inicio, struct No **fin, int valor) {
+struct No *novo = (struct No *)malloc(sizeof(struct No));
+novo->valor = valor;
+novo->proximo = NULL;
+novo->anterior = *fin;
+
+if (*fin != NULL) {
+(*fin)->proximo = novo;
+} else {
+*inicio = novo;
+}
+
+*fin = novo;
+printf("Inserido %d no fim.\n", valor);
+}
+
+void removerInicio(struct No **inicio, struct No **fin) {
+if (*inicio == NULL) {
+printf("Lista vazia. Nada para remover.\n");
+return;
+}
+
+struct No *temp = *inicio;
+printf("Removendo %d do início.\n", temp->valor);
+
+*inicio = temp->proximo;
+
+if (*inicio != NULL) {
+(*inicio)->anterior = NULL;
+} else {
+*fin = NULL;
+}
+free(temp);
+}
+
+void removerFim(struct No **inicio, struct No **fin) {
+if (*fin == NULL) {
+printf("Lista vazia. Nada para remover.\n");
+return;
+}
+
+struct No *temp = *fin;
+printf("Removendo %d do fim.\n", temp->valor);
+
+*fin = temp->anterior;
+
+if (*fin != NULL) {
+(*fin)->proximo = NULL;
+} else {
+*inicio = NULL;
+}
+free(temp);
+}
+
+void mostrarInicioAoFin(struct No *inicio) {
+if (inicio == NULL) {
+printf("Lista vazia.\n");
+return;
+}
+printf("Lista do início ao fim: ");
+while (inicio != NULL) {
+printf("%d ", inicio->valor);
+inicio = inicio->proximo;
+}
+printf("\n");
+}
+
+void mostrarFimAoInicio(struct No *fin) {
+if (fin == NULL) {
+printf("Lista vazia.\n");
+return;
+}
+printf("Lista do fim ao início: ");
+while (fin != NULL) {
+printf("%d ", fin->valor);
+fin = fin->anterior;
+}
+printf("\n");
+}
+
+void removerPorValor(struct No **inicio, struct No **fin, int valor) {
+if (*inicio == NULL) {
+printf("Lista vazia. Nada para remover.\n");
+return;
+}
+
+struct No *atual = *inicio;
+
+while (atual != NULL && atual->valor != valor) {
+atual = atual->proximo;
+}
+
+if (atual == NULL) {
+printf("Valor %d não encontrado na lista.\n", valor);
+return;
+}
+
+if (atual == *inicio && atual == *fin) {
+*inicio = NULL;
+*fin = NULL;
+} else if (atual == *inicio) {
+*inicio = atual->proximo;
+(*inicio)->anterior = NULL;
+} else if (atual == *fin) {
+*fin = atual->anterior;
+(*fin)->proximo = NULL;
+} else {
+atual->anterior->proximo = atual->proximo;
+atual->proximo->anterior = atual->anterior;
+}
+
+printf("Valor %d removido da lista.\n", atual->valor);
+free(atual);
+}
+
+int main() {
+struct No *inicio = NULL;
+struct No *fin = NULL;
+int opcao, valor;
+do {
+printf("\n==== MENU - LISTA DUPLAMENTE ENCADEADA ====\n");
+printf("1. Inserir no início\n");
+printf("2. Inserir no fim\n");
+printf("3. Remover do início\n");
+printf("4. Remover do fim\n");
+printf("5. Mostrar do início ao fim\n");
+printf("6. Mostrar do fim ao início\n");
+printf("7. Remover por valor\n");
+printf("8. Sair\n");
+printf("Escolha uma opção: ");
+scanf("%d", &opcao);
+switch (opcao) {
+case 1:
+printf("Digite o valor: ");
+scanf("%d", &valor);
+inserirInicio(&inicio, &fin, valor);
+break;
+case 2:
+printf("Digite o valor: ");
+scanf("%d", &valor);
+inserirFim(&inicio, &fin, valor);
+break;
+case 3:
+removerInicio(&inicio, &fin);
+break;
+case 4:
+removerFim(&inicio, &fin);
+break;
+case 5:
+mostrarInicioAoFin(inicio);
+break;
+case 6:
+mostrarFimAoInicio(fin);
+break;
+case 7:
+printf("Digite o valor a ser removido: ");
+scanf("%d", &valor);
+removerPorValor(&inicio, &fin, valor);
+break;
+case 8:
+printf("Encerrando...\n");
+break;
+default:
+printf("Opção inválida.\n");
+}
+} while (opcao != 8);
+
+while (inicio != NULL) {
+struct No *temp = inicio;
+inicio = inicio->proximo;
+free(temp);
+}
+return 0;
+}
