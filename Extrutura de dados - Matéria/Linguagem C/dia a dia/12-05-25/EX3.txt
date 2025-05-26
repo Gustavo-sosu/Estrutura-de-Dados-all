@@ -1,0 +1,59 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
+  Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+
+struct Produto {
+    char nome[30];
+    float preco;
+}
+
+int main()
+{
+    struct Produto produtos[3];
+    struct Produto *ptr = produtos;
+    
+    //produto 1
+    printf("Digite o nome o produto 1: ");
+    scanf("%s", ptr->nome);
+    printf("Digite o preco do produto 1: ");
+    scanf("%f", &ptr->preco);
+    
+    ptr++;
+    
+    //produto 2
+    printf("Digite o nome o produto 1: ");
+    scanf("%s", ptr->nome);
+    printf("Digite o preco do produto 1: ");
+    scanf("%f", &ptr->preco);
+    
+    ptr++;
+    
+    //produto 2
+    printf("Digite o nome o produto 2: ");
+    scanf("%s", ptr->nome);
+    printf("Digite o preco do produto 2: ");
+    scanf("%f", &ptr->preco);
+    
+    ptr++;
+    
+    //produto 3
+    printf("Digite o nome o produto 3: ");
+    scanf("%s", ptr->nome);
+    printf("Digite o preco do produto 3: ");
+    scanf("%f", &ptr->preco);
+    
+    
+    //exibindo dados
+    printf("\n=== Lista de Produtos ===\n");
+    for(int i = 0; i < 3; i++) {
+        printf("Produto %d: %s - R$ %2.f\n", i + 1, Produtos[i].nome, Produtos[i].preco);
+    }
+    
+    return 0;
+}
